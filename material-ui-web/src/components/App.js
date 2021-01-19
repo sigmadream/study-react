@@ -1,12 +1,16 @@
 import React from 'react';
+import {ThemeProvider} from "@material-ui/styles";
+
+import theme from './ui/Theme';
 import Header from '../components/ui/Header';
 
 function App() {
-  return (
-    <div className="App">
-      <Header />
-    </div>
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <Header/>
+            Hello, React.js with Material-UI
+        </ThemeProvider>
+    );
 }
 
 export default App;
