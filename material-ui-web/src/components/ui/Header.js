@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import { makeStyles } from "@material-ui/styles";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/styles";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import React, { useEffect, useState } from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import { makeStyles } from '@material-ui/styles';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/styles';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
-import logo from "../../assets/logo.svg";
+import logo from '../../assets/logo.svg';
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -35,59 +35,59 @@ function ElevationScroll(props) {
 const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
-    marginBottom: "3em",
-    [theme.breakpoints.down("md")]: { marginBottom: "2em" },
-    [theme.breakpoints.down("xs")]: { marginBottom: "1.25em" },
+    marginBottom: '3em',
+    [theme.breakpoints.down('md')]: { marginBottom: '2em' },
+    [theme.breakpoints.down('xs')]: { marginBottom: '1.25em' },
   },
   logoContainer: {
     padding: 0,
-    "&:hover": {
-      backgroundColor: "transparent",
+    '&:hover': {
+      backgroundColor: 'transparent',
     },
   },
   logo: {
-    height: "8em",
-    [theme.breakpoints.down("md")]: { height: "7em" },
-    [theme.breakpoints.down("xs")]: { height: "5.5em" },
+    height: '8em',
+    [theme.breakpoints.down('md')]: { height: '7em' },
+    [theme.breakpoints.down('xs')]: { height: '5.5em' },
   },
   tabContainer: {
-    marginLeft: "auto",
+    marginLeft: 'auto',
   },
   tab: {
     ...theme.typography.tab,
     minWidth: 10,
-    marginLeft: "25px",
+    marginLeft: '25px',
   },
   button: {
     ...theme.typography.estimate,
-    borderRadius: "50px",
-    marginLeft: "50px",
-    marginRight: "25px",
-    height: "45px",
-    "&:hover": {
+    borderRadius: '50px',
+    marginLeft: '50px',
+    marginRight: '25px',
+    height: '45px',
+    '&:hover': {
       backgroundColor: theme.palette.secondary.light,
     },
   },
   menu: {
     backgroundColor: theme.palette.common.blue,
-    color: "white",
-    borderRadius: "0px",
+    color: 'white',
+    borderRadius: '0px',
   },
   menuItem: {
     ...theme.typography.tab,
     opacity: 0.7,
-    "&:hover": {
+    '&:hover': {
       opacity: 1,
     },
   },
   drawerIcon: {
-    height: "50px",
-    width: "50px",
+    height: '50px',
+    width: '50px',
   },
   drawerIconContainer: {
-    marginLeft: "auto",
-    "&:hover": {
-      backgroundColor: "transparent",
+    marginLeft: 'auto',
+    '&:hover': {
+      backgroundColor: 'transparent',
     },
   },
   drawer: {
@@ -95,14 +95,14 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerItem: {
     ...theme.typography.tab,
-    color: "white",
+    color: 'white',
     opacity: 0.7,
   },
   drawerItemEstimate: {
     backgroundColor: theme.palette.common.orange,
   },
   drawerItemSelected: {
-    "& .MuiListItemText-root": {
+    '& .MuiListItemText-root': {
       opacity: 1,
     },
   },
@@ -114,18 +114,16 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
+  const matches = useMediaQuery(theme.breakpoints.down('md'));
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleChange = (e, newValue) => {
-    setValue(newValue);
+    props.setValue(newValue);
   };
 
   const handleClick = (e) => {
@@ -136,7 +134,7 @@ export default function Header(props) {
   const handleMenuItemClick = (e, i) => {
     setAnchorEl(null);
     setOpenMenu(false);
-    setSelectedIndex(i);
+    props.setSelectedIndex(i);
   };
 
   const handleClose = (e) => {
@@ -145,50 +143,53 @@ export default function Header(props) {
   };
 
   const menuOptions = [
-    { name: "Services", link: "/services", activeIndex: 1, selectedIndex: 0 },
+    { name: 'Services', link: '/services', activeIndex: 1, selectedIndex: 0 },
     {
-      name: "Custom Software Development",
-      link: "/customsoftware",
+      name: 'Custom Software Development',
+      link: '/customsoftware',
       activeIndex: 1,
       selectedIndex: 1,
     },
     {
-      name: "iOS/Android App Development",
-      link: "/mobileapps",
+      name: 'iOS/Android App Development',
+      link: '/mobileapps',
       activeIndex: 1,
       selectedIndex: 2,
     },
     {
-      name: "Website Development",
-      link: "/websites",
+      name: 'Website Development',
+      link: '/websites',
       activeIndex: 1,
       selectedIndex: 3,
     },
   ];
 
   const routes = [
-    { name: "Home", link: "/", activeIndex: 0 },
+    { name: 'Home', link: '/', activeIndex: 0 },
     {
-      name: "Services",
-      link: "/services",
+      name: 'Services',
+      link: '/services',
       activeIndex: 1,
-      ariaOwns: anchorEl ? "simple-menu" : undefined,
-      ariaPopup: anchorEl ? "true" : undefined,
+      ariaOwns: anchorEl ? 'simple-menu' : undefined,
+      ariaPopup: anchorEl ? 'true' : undefined,
       mouseOver: (event) => handleClick(event),
     },
-    { name: "The Revolution", link: "/revolution", activeIndex: 2 },
-    { name: "About Us", link: "/about", activeIndex: 3 },
-    { name: "Contact Us", link: "/contact", activeIndex: 4 },
+    { name: 'The Revolution', link: '/revolution', activeIndex: 2 },
+    { name: 'About Us', link: '/about', activeIndex: 3 },
+    { name: 'Contact Us', link: '/contact', activeIndex: 4 },
   ];
 
   useEffect(() => {
     [...menuOptions, ...routes].forEach((route) => {
       switch (window.location.pathname) {
         case `${route.link}`:
-          if (value !== route.activeIndex) {
-            setValue(route.activeIndex);
-            if (route.selectedIndex && route.selectedIndex !== selectedIndex) {
-              setSelectedIndex(route.selectedIndex);
+          if (props.value !== route.activeIndex) {
+            props.setValue(route.activeIndex);
+            if (
+              route.selectedIndex &&
+              route.selectedIndex !== props.selectedIndex
+            ) {
+              props.AppBarsetSelectedIndex(route.selectedIndex);
             }
           }
           break;
@@ -196,12 +197,12 @@ export default function Header(props) {
           break;
       }
     });
-  }, [value, menuOptions, selectedIndex, routes]);
+  }, [props.value, menuOptions, props.selectedIndex, routes, props]);
 
   const tabs = (
     <React.Fragment>
       <Tabs
-        value={value}
+        value={props.value}
         onChange={handleChange}
         className={classes.tabContainer}
         indicatorColor="primary"
@@ -241,10 +242,10 @@ export default function Header(props) {
             classes={{ root: classes.menuItem }}
             onClick={(event) => {
               handleMenuItemClick(event, i);
-              setValue(1);
+              props.setValue(1);
               handleClose();
             }}
-            selected={i === selectedIndex && value === 1}
+            selected={i === props.selectedIndex && props.value === 1}
           >
             {option.name}
           </MenuItem>
@@ -272,11 +273,11 @@ export default function Header(props) {
               button
               component={Link}
               to={route.link}
-              selected={value === route.activeIndex}
+              selected={props.value === route.activeIndex}
               classe={{ selected: classes.drawerItemSelected }}
               onClick={() => {
                 setOpenDrawer(false);
-                setValue(route.activeIndex);
+                props.setValue(route.activeIndex);
               }}
             >
               <ListItemText className={classes.drawerItem} disableTypography>
@@ -291,13 +292,13 @@ export default function Header(props) {
             }}
             onClick={() => {
               setOpenDrawer(false);
-              setValue(5);
+              props.setValue(5);
             }}
             divider
             button
             component={Link}
             to="/estimate"
-            selected={value === 5}
+            selected={props.value === 5}
           >
             <ListItemText className={classes.drawerItem} disableTypography>
               Free Estimate
@@ -323,7 +324,7 @@ export default function Header(props) {
             <Button
               disableRipple
               className={classes.logoContainer}
-              onClick={() => setValue(0)}
+              onClick={() => props.setValue(0)}
               component={Link}
               to="/"
             >
