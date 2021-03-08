@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { ThemeProvider } from '@material-ui/styles';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import theme from './ui/Theme';
-import Header from '../components/ui/Header';
-import Footer from '../components/ui/Footer';
+import React, { useState } from "react";
+import { ThemeProvider } from "@material-ui/styles";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import theme from "./ui/Theme";
+import Header from "../components/ui/Header";
+import Footer from "../components/ui/Footer";
+import LandingPage from "./LandingPage";
 
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -22,7 +23,13 @@ function App() {
           <Route
             exact
             path="/"
-            component={() => <div style={{ height: '2000px' }}>Home</div>}
+            render={(props) => (
+              <LandingPage
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
           />
           <Route exact path="/services" component={() => <div>services</div>} />
           <Route
