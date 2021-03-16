@@ -1,6 +1,6 @@
 # React-Redux Tutorial
 
-# 이 튜토리얼의 목적
+## 소개
 
 React와 Redux의 작동방법이 아니라, 작성방법을 기준으로 튜토리얼을 진행
 
@@ -8,25 +8,25 @@ React와 Redux의 작동방법이 아니라, 작성방법을 기준으로 튜토
 React <-> React-Redux <-> Redux
 ```
 
-# 준비사항
+## 준비사항
 
 Redux 라이브러리를 사용할 수 있어야 하며, 기본적인 Redux에 대한 개념은 알아야 함
 
-# 튜토리얼
+## 튜토리얼
 
-## Step1, 프로젝트 시작하기
+### Step 1, 프로젝트 시작하기
 
 ```
 $ npx create-react-app react-redux-tutorial
 $ yarn add redux react-redux
 ```
 
-## Step2
+## Step 2, 프로젝트 초기화
 
 - `src` 폴더에 있는 모든 파일 삭제
 - `public/index.html`에 자신이 잘 사용할 수 있는 CSS 프레임워크 추가
 
-## Step3
+## Step 3, React 및 ReactDOM 설정
 
 - `src/index.js` 파일 작성
 
@@ -52,35 +52,12 @@ export default App;
 
 ```
 
-## Step4
+## Step 4, 데이터 흐름
 
-만약, Redux 없이 해당 프로젝트를 만든다면, 아래와 같은 데이터 흐름을 가지게 됨
-App -> Props{List Of Songs, onSongSelect} -> SongList
-App -> Props{Selected song} -> SongDetail
+- App -> Props{List Of Songs, onSongSelect} -> SongList
+- App -> Props{Selected song} -> SongDetail
 
-Redux를 사용하게 된다면 아래와 같은 형태의 데이터 흐름을 가짐
-
-- Reducers
-  - song list
-  - selected song
-- Action
-  - select song
-
-React-Redux를 연결한다면 아래와 같은 데이터 흐름을 가짐
-
-- [Store]
-  - [Reducers]
-    - song list
-    - selected song
-- [Provider]
-- App
-- [Connect]
-- SongList
-
-- [Action]
-  - Select Song
-
-## Step5
+## Step 5, Action 작성
 
 `src/actions/index.js`에 Action을 작성
 
@@ -93,7 +70,7 @@ export const selectSong = (song) => {
 };
 ```
 
-## Step6
+## Step 6, Reducer 작성
 
 ```
 const songReducer = () => {
@@ -118,7 +95,7 @@ export default combineReducers({
 });
 ```
 
-## Step7
+## Step 7, Store 및 Provide 설정
 
 `src/index.js` 수정
 
@@ -140,7 +117,7 @@ ReactDOM.render(
 
 ```
 
-## Step8
+## Step 8, 컴포넌트와 연결
 
 ```
 import React, { Component } from 'react';
@@ -162,7 +139,7 @@ export default connect(mapStateToProps)(SongList);
 
 ```
 
-## Step9
+## Step 9, 컴포넌트 작성
 
 ```
 import React, { Component } from 'react';
@@ -203,7 +180,7 @@ export default connect(mapStateToProps, { selectSong })(SongList);
 
 ```
 
-Step10
+## Step 10, hook 기반 컴포넌트
 
 ```
 import React, { Component } from 'react';
